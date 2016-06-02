@@ -1,0 +1,66 @@
+<resources>
+
+    <string name="cancel">取消</string>
+    <string name="confirm">确定</string>
+    <string name="login">登录</string>
+    <string name="logout">退出登录</string>
+    <string name="delete">删除</string>
+    <string name="clear">清除</string>
+    <string name="search">搜索</string>
+    <string name="settings">设置</string>
+    <string name="empty"/>
+
+    <!-- account -->
+    <string name="forget_pwd">忘记密码?</string>
+    <string name="register">注册</string>
+    <string name="pwd">密码</string>
+    <string name="account_username">用户名/邮箱/手机号</string>
+
+    <string name="unknown_error">未知错误</string>
+    <string name="msg_exit_back_tips">再按一次退出应用</string>
+
+    <string name="network_unavailable">网络连接不可用</string>
+    <string name="tips_network_unavailable">您的设备未启动移动网络或无线局域网\n前往设置检查网络连接?</string>
+
+    <string name="socket_timeout_exception">服务器连接超时,请检查网络后重试</string>
+    <string name="unknown_exception">发生未知错误</string>
+    <string name="network_exception">网络访问异常</string>
+    <string name="json_exception">数据格式化发生错误</string>
+    <string name="io_exception">数据读写错误</string>
+    <string name="camera_permission_exception">调用摄像头拒绝,请在设置中允许</string>
+    <string name="camera_exception">摄像头读取失败</string>
+    <string name="photo_crop_exception">图片剪裁失败</string>
+    <string name="on_activity_result_data_null">返回数据失败</string>
+    <string name="picked_image_null">获取已选择图片失败</string>
+    <string name="load_fail_retry">加载失败，点击重新加载</string>
+    <string name="gps">GPS</string>
+    <string name="gps_weak">GPS 弱</string>
+    <string name="gps_middle">GPS 中</string>
+    <string name="gps_strength">GPS 强</string>
+    <string name="data">数据</string>
+    <string name="detail">详情</string>
+    <string name="query_data_failed">查询数据失败</string>
+    <string name="agree">确定</string>
+    <string name="relogin">重新登陆</string>
+    <string name="tip_relogin">会话结束,请重新登陆</string>
+
+
+    <!--ERROR-->
+    <string name="tip_error_101">验证码无效</string>
+    <string name="tip_error_102">无效的用户名或密码</string>
+    <string name="tip_error_103">无效手机号码</string>
+    <string name="tip_error_105">上传失败</string>
+    <string name="tip_error_107">无效的关注</string>
+    <string name="tip_error_108">添加关注失败</string>
+    <string name="tip_error_109">取消关注失败</string>
+    <string name="tip_error_110">无效数据</string>
+    <string name="tip_error_111">数据重复</string>
+    <string name="tip_error_112">无效的跑团</string>
+    <string name="tip_error_113">无效的跑团权限</string>
+    <string name="tip_error_114">无效的邮箱</string>
+    <string name="tip_error_115">邮箱已存在</string>
+    <string name="tip_error_116">请求超时</string>
+    <string name="tip_error_117">重新绑定</string>
+    <string name="tip_error_118">无效的操作</string>
+    <string name="tip_error_500">更新数据失败</string>
+</resources>

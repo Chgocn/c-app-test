@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- theme color -->
+    <color name="primary">#1A191E</color>
+    <color name="primary_dark">#1A191E</color>
+    <color name="accent">#607D8B</color>
+    <color name="win_bg">#292A2F</color>
+    <color name="primary_text">#dab866</color>
+
+
+    <!-- tab widget -->
+    <color name="tab_bg">#3e3a39</color>
+    <color name="tab_text_selected">#3d3939</color>
+    <color name="tab_text">#dab866</color>
+    <color name="tab_bg_top">#dedede</color>
+    <color name="tab_bg_selected">#dab866</color>
+
+    <!--pagerslidingstrip tab backgroud-->
+    <color name="background_tab_pressed">#6633B5E5</color>
+
+	<!-- swipe refresh color -->
+	<color name="swipe_refresh_start">@color/primary</color>
+	<color name="swipe_refresh_process1">@color/primary_dark</color>
+	<color name="swipe_refresh_process2">@color/primary</color>
+	<color name="swipe_refresh_end">@color/primary_dark</color>
+
+	<!-- text color -->
+    <color name="normal_text_color">#000000</color>
+    <color name="normal_text_color_disabled">#7f353535</color>
+    <color name="white_color">@android:color/white</color>
+    <color name="white_color_disabled">#7fffffff</color>
+    <color name="text_color_clickable">#ff0b61d8</color>
+
+    <!-- button color -->
+    <color name="btn_blue_normal">#ff4c88db</color>
+    <color name="btn_blue_pressed">#ff2567c1</color>
+    <color name="btn_blue_disabled">#ee75a1dd</color>
+
+    <color name="btn_green_normal">#52A703</color>
+    <color name="btn_green_pressed">#ff57ff7b</color>
+    <color name="btn_green_disabled">#ee83dd84</color>
+
+    <color name="btn_red_normal">#ffd74141</color>
+    <color name="btn_red_pressed">#ffff4f1f</color>
+    <color name="btn_red_disabled">#eeddafa9</color>
+
+    <color name="btn_grey_normal">#ffcdcbd0</color>
+    <color name="btn_grey_pressed">#ffd2d5d9</color>
+    <color name="btn_grey_disabled">#eed2d5d9</color>
+
+    <color name="white_pressed">#ffd5d5d5</color>
+
+    <!-- list divider -->
+    <color name="list_divider_top">#E2E2E2</color>
+    <color name="list_divider_bottom">#FFFFFF</color>
+    <color name="grid_divider">#c0c0c0</color>
+
+	<!-- action counter -->
+	<color name="action_counter_no">@color/tab_text</color>
+	<color name="action_counter_label">@color/primary</color>
+
+    <color name="segment_post_text_checked">#ff0000</color>
+    <color name="segment_post_text_normal">#000000</color>
+    <color name="black">#000000</color>
+    <color name="whitesmoke">#ffffff</color>
+
+
+</resources>

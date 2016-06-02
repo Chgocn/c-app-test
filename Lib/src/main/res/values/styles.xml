@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="RootView">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:fitsSystemWindows">true</item>
+        <item name="android:orientation">vertical</item>
+    </style>
+
+    <!--<style name="ResetEditText" parent="@android:style/Widget.EditText">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">50dp</item>
+        <item name="android:drawableRight">@drawable/abc_ic_clear_mtrl_alpha</item>
+        <item name="android:background">@null</item>
+        <item name="android:layout_marginLeft">@dimen/margin_xl</item>
+        <item name="android:layout_marginRight">@dimen/margin_xl</item>
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:textSize">@dimen/text_size_l</item>
+        <item name="android:textColor">@color/normal_text_color</item>
+        <item name="android:textColorHint">@android:color/darker_gray</item>
+        <item name="android:textCursorDrawable">@null</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:singleLine">true</item>
+    </style>-->
+
+    <!-- Button style. -->
+    <style name="Button" parent="@android:style/Widget.Button" />
+
+    <style name="Button.Small" parent="@style/Button">
+        <item name="android:textSize">@dimen/text_size_s</item>
+        <item name="android:textColor">@color/white_color_selector</item>
+        <item name="android:gravity">center</item>
+        <item name="android:paddingLeft">@dimen/padding_xxs</item>
+        <item name="android:paddingRight">@dimen/padding_xxs</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:minWidth">@dimen/button_width_s</item>
+        <item name="android:minHeight">@dimen/button_height_s</item>
+    </style>
+
+    <style name="Button.Big" parent="@style/Button">
+        <item name="android:textSize">@dimen/text_size_xxl</item>
+        <item name="android:textColor">@color/normal_text_color_selector</item>
+        <item name="android:gravity">center</item>
+        <item name="android:paddingLeft">@dimen/padding_xl</item>
+        <item name="android:paddingRight">@dimen/padding_xl</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:minHeight">@dimen/button_height_x</item>
+    </style>
+
+    <!-- TextAppearance style. -->
+    <style name="TextAppearance" parent="@android:style/TextAppearance.Holo" >
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="TextAppearance.Clickable" parent="@style/TextAppearance">
+        <item name="android:textColor">@color/text_color_clickable</item>
+        <item name="android:clickable">true</item>
+        <item name="android:gravity">start</item>
+    </style>
+
+    <!-- ProgressBar Style. -->
+    <style name="ProgressBar">
+        <item name="android:layout_width">50dp</item>
+        <item name="android:layout_height">50dp</item>
+
+        <item name="android:indeterminate">true</item>
+        <item name="android:indeterminateDuration">2000</item>
+        <item name="android:indeterminateOnly">true</item>
+    </style>
+
+    <style name="ProgressBar.Big" parent="@style/ProgressBar">
+        <item name="android:layout_width">100dp</item>
+        <item name="android:layout_height">100dp</item>
+    </style>
+
+    <style name="ProgressBar.Middle" parent="@style/ProgressBar">
+        <item name="android:layout_width">64dp</item>
+        <item name="android:layout_height">64dp</item>
+    </style>
+
+    <style name="EditText" parent="@android:style/Widget.EditText">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:textSize">@dimen/text_size_s</item>
+        <item name="android:textColor">@color/normal_text_color</item>
+        <item name="android:textColorHint">#ff7d7d7d</item>
+        <item name="android:textCursorDrawable">@null</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:singleLine">true</item>
+    </style>
+
+    <style name="Text" parent="@android:style/Widget.TextView">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:clickable">false</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:textSize">@dimen/text_size_m</item>
+        <item name="android:textColor">@color/normal_text_color</item>
+    </style>
+
+    <style name="Text.Normal" parent="Text" >
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:textSize">@dimen/text_size_m</item>
+        <item name="android:paddingRight">@dimen/padding_xxl</item>
+        <item name="android:paddingLeft">@dimen/padding_xl</item>
+        <item name="android:paddingTop">@dimen/padding_xs</item>
+        <item name="android:paddingBottom">@dimen/padding_xs</item>
+        <item name="android:gravity">center_vertical</item>
+    </style>
+
+    <style name="Text.Big" parent="Text" >
+        <item name="android:textSize">@dimen/text_size_l</item>
+    </style>
+
+    <style name="Text.Tip" parent="Text" >
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:gravity">center_horizontal</item>
+    </style>
+
+    <style name="LinearLayout">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@android:color/white</item>
+        <item name="android:orientation">vertical</item>
+    </style>
+
+    <style name="SegmentedControl" parent="@android:style/Widget">
+    <item name="android:textSize">@dimen/text_size_xl</item>
+    <item name="android:textColor">@color/primary_text</item>
+    <item name="android:gravity">center</item>
+    <item name="android:padding">@dimen/padding_l</item>
+    <item name="android:layout_marginBottom">@dimen/margin_xxs</item>
+    <item name="android:button">@null</item>
+    <item name="android:layout_width">0dp</item>
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:layout_weight">1</item>
+    <item name="android:background">@drawable/bg_segment_button_selector</item>
+    </style>
+
+    <declare-styleable name="RoundProgressBar">
+        <attr name="max" format="integer"/>
+        <attr name="progress" format="integer"/>
+        <attr name="startAngle" format="integer"/>
+        <attr name="ringColor" format="color"/>
+        <attr name="ringProgressColor" format="color"/>
+        <attr name="ringWidth" format="dimension"/>
+        <attr name="centreColor" format="color" />
+        <attr name="textColor" format="color" />
+        <attr name="textSize" format="dimension" />
+        <attr name="textIsDisplayable" format="boolean"/>
+        <attr name="style">
+            <enum name="STROKE" value="0"/>
+            <enum name="FILL" value="1"/>
+        </attr>
+    </declare-styleable>
+
+</resources>
