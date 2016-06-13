@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string-array name="gps_level" >
-        <item name="gps_weak">@string/gps_weak</item>
-        <item name="gps_middle">@string/gps_middle</item>
-        <item name="gps_strength">@string/gps_strength</item>
-    </string-array>
-</resources>

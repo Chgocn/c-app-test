@@ -22,9 +22,6 @@
     <dimen name="margin_xl">16.0dip</dimen>
     <dimen name="margin_xxl">20.0dip</dimen>
     <dimen name="margin_xxxl">30.0dip</dimen>
-    <dimen name="margin_xxxlpxxs">33.0dip</dimen>
-    <dimen name="margin_xxxxl">40.0dip</dimen>
-    <dimen name="margin_xxxxxl">50.0dip</dimen>
 
     <!-- padding -->
     <dimen name="padding_xxs">3.0dip</dimen>
@@ -34,12 +31,7 @@
     <dimen name="padding_l">12.0dip</dimen>
     <dimen name="padding_xl">16.0dip</dimen>
     <dimen name="padding_xxl">20.0dip</dimen>
-    <dimen name="padding_xxlpxxs">23.0dip</dimen>
-    <dimen name="padding_xxlpxs">25.0dip</dimen>
     <dimen name="padding_xxxl">30.0dip</dimen>
-    <dimen name="padding_xxxlpxxs">33.0dip</dimen>
-    <dimen name="padding_xxxxl">40.0dip</dimen>
-    <dimen name="padding_xxxxxl">50.0dip</dimen>
 
     <!-- button -->
     <dimen name="button_height_s">32dp</dimen>

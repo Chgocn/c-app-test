@@ -1,14 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-	<!-- ExceptionView -->
-	<declare-styleable name="ExceptionView">
-		<attr name="exp_msg" format="string|reference"/>
-		<attr name="exp_icon" format="reference"/>
-		<attr name="exp_action_btn_shown" format="boolean"/>
-		<attr name="exp_action_btn_title" format="string|reference"/>
-	</declare-styleable>
-
 	<!-- PagerSlidingTabStrip -->
 	<declare-styleable name="PagerSlidingTabStrip">
 		<attr name="pstsIndicatorColor" format="color"/>

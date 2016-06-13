@@ -7,7 +7,6 @@ import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,8 +17,6 @@ import android.widget.Toast;
 import com.alibaba.fastjson.JSON;
 
 import java.io.Serializable;
-import java.lang.reflect.Method;
-import java.util.Map;
 
 /**
  * Base Application
@@ -29,7 +26,7 @@ import java.util.Map;
  */
 public class BaseApplication extends Application {
 
-    protected static String PREF_NAME = "ks.pref";
+    protected static String PREF_NAME = "cache.pref";
     private static String REFRESH_TIME = "refresh_time.pref";
     private static String NO_CLEAR = "no_clear.pref";
 
@@ -42,7 +39,6 @@ public class BaseApplication extends Application {
     public static int sHeightPix;
     public static float sScaledDensity;
     private static Toast toast;
-    public static boolean hasNB;
 
     @Override
     public void onCreate() {
@@ -50,7 +46,6 @@ public class BaseApplication extends Application {
         _context = getApplicationContext();
         _resource = _context.getResources();
 
-        hasNB = checkDeviceHasNavigationBar(context());
         calcDisplayMetrics();
     }
 
@@ -214,16 +209,6 @@ public class BaseApplication extends Application {
         return sp.contains(key);
     }
 
-    /**
-     * 返回所有的键值对
-     *
-     * @param context
-     * @return
-     */
-    public static Map<String, ?> getAll(Context context) {
-        SharedPreferences sp = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
-        return sp.getAll();
-    }
     // [-] Display Screen Param
 
     // [+] Show Toast
@@ -298,12 +283,7 @@ public class BaseApplication extends Application {
         if (gravity == Gravity.CENTER) {
             toast.setGravity(gravity, 0, 0);
         } else {
-            //toast.setGravity(gravity, 0, 35);
-            if (hasNB) {
-                toast.setGravity(gravity, 0, (int) (70 * sDensity + 0.5f));
-            } else {
-                toast.setGravity(gravity, 0, (int) (60 * sDensity + 0.5f));
-            }
+            toast.setGravity(gravity, 0, 35);
         }
 
         toast.setDuration(duration);
@@ -318,29 +298,6 @@ public class BaseApplication extends Application {
         super.onLowMemory();
         // auto gc when the memory is low
         System.gc();
-    }
-
-    //获取是否存在NavigationBar
-    public static boolean checkDeviceHasNavigationBar(Context context) {
-        boolean hasNavigationBar = false;
-        Resources rs = context.getResources();
-        int id = rs.getIdentifier("config_showNavigationBar", "bool", "android");
-        if (id > 0) {
-            hasNavigationBar = rs.getBoolean(id);
-        }
-        try {
-            Class systemPropertiesClass = Class.forName("android.os.SystemProperties");
-            Method m = systemPropertiesClass.getMethod("get", String.class);
-            String navBarOverride = (String) m.invoke(systemPropertiesClass, "qemu.hw.mainkeys");
-            if ("1".equals(navBarOverride)) {
-                hasNavigationBar = false;
-            } else if ("0".equals(navBarOverride)) {
-                hasNavigationBar = true;
-            }
-        } catch (Exception e) {
-
-        }
-        return hasNavigationBar;
     }
 
 }
