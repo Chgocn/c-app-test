@@ -30,9 +30,11 @@ public class AppContext extends Application{
         super.onCreate();
         CrashHandler.install(getApplicationContext());
         LeakCanary.install(this);
-        Stetho.initialize(Stetho.newInitializerBuilder(this)
-                        .enableDumpapp(Stetho.defaultDumperPluginsProvider(this))
-                        .enableWebKitInspector(Stetho.defaultInspectorModulesProvider(this))
-                        .build());
+        if(BuildConfig.DEBUG){
+            Stetho.initialize(Stetho.newInitializerBuilder(this)
+                    .enableDumpapp(Stetho.defaultDumperPluginsProvider(this))
+                    .enableWebKitInspector(Stetho.defaultInspectorModulesProvider(this))
+                    .build());
+        }
     }
 }
