@@ -3,6 +3,7 @@ package io.chgocn.app;
 import android.app.Application;
 
 import com.facebook.stetho.Stetho;
+import com.github.moduth.blockcanary.BlockCanary;
 import com.squareup.leakcanary.LeakCanary;
 
 import io.chgocn.plug.utils.CrashHandler;
@@ -30,6 +31,7 @@ public class AppContext extends Application{
         super.onCreate();
         CrashHandler.install(getApplicationContext());
         LeakCanary.install(this);
+        BlockCanary.install(this, new AppBlockCanaryContext()).start();
         if(BuildConfig.DEBUG){
             Stetho.initialize(Stetho.newInitializerBuilder(this)
                     .enableDumpapp(Stetho.defaultDumperPluginsProvider(this))
