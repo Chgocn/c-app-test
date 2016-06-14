@@ -10,8 +10,15 @@
     tools:context=".activity.HomeActivity">
 
     <Button
-        android:id="@+id/test"
+        android:id="@+id/error_test"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="点击崩溃" />
+        android:text="@string/error_test" />
+
+    <Button
+        android:id="@+id/leak_test"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/error_test"
+        android:text="内存泄漏" />
 </RelativeLayout>

@@ -2,6 +2,8 @@ package io.chgocn.app;
 
 import android.app.Application;
 
+import com.squareup.leakcanary.LeakCanary;
+
 import io.chgocn.plug.utils.CrashHandler;
 
 /**
@@ -26,7 +28,6 @@ public class AppContext extends Application{
     public void onCreate() {
         super.onCreate();
         CrashHandler.install(getApplicationContext());
-        //CrashHandler.setErrorActivityClass(CustomErrorActivity.class);
-        //CrashHandler.init(new CrashHandler(getApplicationContext()));
+        LeakCanary.install(this);
     }
 }
