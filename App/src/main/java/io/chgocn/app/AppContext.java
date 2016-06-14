@@ -2,6 +2,7 @@ package io.chgocn.app;
 
 import android.app.Application;
 
+import com.facebook.stetho.Stetho;
 import com.squareup.leakcanary.LeakCanary;
 
 import io.chgocn.plug.utils.CrashHandler;
@@ -29,5 +30,9 @@ public class AppContext extends Application{
         super.onCreate();
         CrashHandler.install(getApplicationContext());
         LeakCanary.install(this);
+        Stetho.initialize(Stetho.newInitializerBuilder(this)
+                        .enableDumpapp(Stetho.defaultDumperPluginsProvider(this))
+                        .enableWebKitInspector(Stetho.defaultInspectorModulesProvider(this))
+                        .build());
     }
 }
