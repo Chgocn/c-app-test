@@ -1,4 +1,4 @@
-package com.kingsmith.plug.umeng;
+package io.chgocn.plug.utils;
 
 import android.content.Context;
 import android.content.pm.PackageInfo;

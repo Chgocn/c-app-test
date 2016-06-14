@@ -52,4 +52,15 @@
 
     <dimen name="photo_confirm_height">45dp</dimen>
 
+    <dimen name="customactivityoncrash_activity_horizontal_margin">16dp</dimen>
+    <dimen name="customactivityoncrash_activity_vertical_margin">16dp</dimen>
+
+    <dimen name="customactivityoncrash_error_activity_error_details_text_size">12sp</dimen>
+
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+
+    <!-- Margin for restart button -->
+    <dimen name="restart_button_margin">16dp</dimen>
+
 </resources>

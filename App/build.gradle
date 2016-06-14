@@ -14,11 +14,16 @@ android {
 
         // Enabling multidex support.
         multiDexEnabled true
+        //Api server url
+        buildConfigField 'String','API_SERVER_URL','"http://api.com.cn/V0.2/"'
+        buildConfigField 'boolean','LOG_DEBUG','true'
     }
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            buildConfigField 'String','API_SERVER_URL','"http://api.com.cn/V0.1/"'
+            buildConfigField 'boolean','LOG_DEBUG','false'
         }
     }
 }
@@ -26,7 +31,7 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
-    compile 'com.android.support:appcompat-v7:23.4.0'
+    //compile 'com.android.support:appcompat-v7:23.4.0'
     compile project(':Lib')
     compile project(':Umeng')
 }

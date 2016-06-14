@@ -35,5 +35,28 @@
     <string name="agree">确定</string>
     <string name="relogin">重新登陆</string>
 
+    <!--custom crash -->
+    <string name="error_occurred_explanation">An unexpected error occurred.\nSorry for the inconvenience.</string>
+    <string name="restart_app">Restart app</string>
+    <string name="close_app">Close app</string>
+    <string name="close">Close</string>
+    <string name="copy">Copy to clipboard</string>
+    <string name="copied">Copied to clipboard</string>
+    <string name="clipboard_label">Error information</string>
+
+    <!-- Main activity strings -->
+    <string name="hello">Hello! Press one of the following buttons to crash the app:</string>
+    <string name="crash_main_thread">Crash main thread</string>
+    <string name="crash_background_thread">Crash background thread</string>
+    <string name="crash_with_delay">Crash with delay (5s)</string>
+
+    <!-- These strings are only for our CUSTOM error activity, if you are using the default activity, they are not needed! -->
+    <string name="error_title">Error</string>
+    <string name="error_occurred">An error occurred. We\'re deeply sorry.</string>
+    <string name="error_details">Error details:</string>
+
+    <!-- We define some custom strings for the default error activity -->
+    <!-- This only applies when using the default error activity, of course! -->
+    <!-- To see them, disable the custom error activity in SampleCrashingApplication -->
 
 </resources>

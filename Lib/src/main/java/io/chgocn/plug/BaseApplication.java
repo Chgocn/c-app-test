@@ -5,6 +5,7 @@ import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
+import android.os.Environment;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
@@ -26,6 +27,7 @@ import java.io.Serializable;
  */
 public class BaseApplication extends Application {
 
+    public static String cacheDir = "";
     protected static String PREF_NAME = "cache.pref";
     private static String REFRESH_TIME = "refresh_time.pref";
     private static String NO_CLEAR = "no_clear.pref";
@@ -47,6 +49,19 @@ public class BaseApplication extends Application {
         _resource = _context.getResources();
 
         calcDisplayMetrics();
+        initCachePath();
+    }
+
+    private void initCachePath() {
+        if (getApplicationContext().getExternalCacheDir() != null && Environment.getExternalStorageState().equals(android.os.Environment.MEDIA_MOUNTED)) {
+            cacheDir = getApplicationContext().getExternalCacheDir().toString();
+        } else {
+            cacheDir = getApplicationContext().getCacheDir().toString();
+        }
+    }
+
+    public static String getCachePath(){
+        return cacheDir;
     }
 
     public static synchronized BaseApplication context() {

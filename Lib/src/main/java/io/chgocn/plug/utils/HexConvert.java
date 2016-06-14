@@ -36,11 +36,11 @@ public class HexConvert {
 	 */  
     public static String str2HexStr(String str){  
         StringBuilder sb = new StringBuilder();
-        byte[] bs = str.getBytes();  
-        
-        for (int i = 0; i < bs.length; i++){  
-            sb.append(mChars[(bs[i] & 0xFF) >> 4]);  
-            sb.append(mChars[bs[i] & 0x0F]);
+        byte[] bs = str.getBytes();
+
+        for (byte b : bs) {
+            sb.append(mChars[(b & 0xFF) >> 4]);
+            sb.append(mChars[b & 0x0F]);
             sb.append(' ');
         }  
         return sb.toString().trim();  
@@ -53,13 +53,13 @@ public class HexConvert {
      */  
     public static String hexStr2Str(String hexStr){  
     	hexStr = hexStr.trim().replace(" ", "").toUpperCase(Locale.US);
-        char[] hexs = hexStr.toCharArray();  
+        char[] hexes = hexStr.toCharArray();
         byte[] bytes = new byte[hexStr.length() / 2];  
         int iTmp = 0x00;
 
         for (int i = 0; i < bytes.length; i++){  
-        	iTmp = mHexStr.indexOf(hexs[2 * i]) << 4;  
-        	iTmp |= mHexStr.indexOf(hexs[2 * i + 1]);  
+        	iTmp = mHexStr.indexOf(hexes[2 * i]) << 4;
+        	iTmp |= mHexStr.indexOf(hexes[2 * i + 1]);
             bytes[i] = (byte) (iTmp & 0xFF);  
         }  
         return new String(bytes);  

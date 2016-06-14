@@ -1,22 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-		  package="io.chgocn.plug">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="io.chgocn.plug">
 
-	<uses-permission android:name="android.permission.BLUETOOTH" />
-	<uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
-
-	<permission android:name="android.permission.BLUETOOTH" android:label="BLUETOOTH" />
-	<permission android:name="android.permission.BLUETOOTH_ADMIN" />
-
-	<uses-feature
-		android:name="android.hardware.bluetooth_le"
-		android:required="false"/>
-
-	<supports-screens
-			android:anyDensity="true"
-			android:largeScreens="true"
-			android:normalScreens="true"
-			android:resizeable="true"
-			android:smallScreens="true"/>
-
+    <supports-screens android:anyDensity="true" android:largeScreens="true"
+        android:normalScreens="true" android:resizeable="true" android:smallScreens="true" />
+    <application>
+        <activity android:name=".activity.DefaultErrorActivity" android:label="@string/error_title"
+            android:process=":error_activity">
+            <!-- You can also use this instead of using CrashHandler.setErrorActivityClass(CustomErrorActivity.class); -->
+            <!--<intent-filter>-->
+            <!--<action android:name="io.chgocn.plug.ERROR" />-->
+            <!--</intent-filter>-->
+        </activity>
+    </application>
 </manifest>

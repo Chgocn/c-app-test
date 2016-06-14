@@ -44,8 +44,7 @@ public class ViewUtils {
      * @param invisible
      * @return view
      */
-    public static <V extends View> V setInvisible(final V view,
-                                                  final boolean invisible) {
+    public static <V extends View> V setInvisible(final V view, final boolean invisible) {
         if (view != null)
             if (invisible) {
                 if (INVISIBLE != view.getVisibility())
