@@ -15,6 +15,7 @@ import io.chgocn.plug.BuildConfig;
  * 使用此Log类将会把信息打印在日志文件和LogCat中
  *
  * update by hugo on 2016/5/5 thanks for bruce
+ * @author hugo
  */
 public class PLog {
     public static boolean isDebug = BuildConfig.LOG_DEBUG;

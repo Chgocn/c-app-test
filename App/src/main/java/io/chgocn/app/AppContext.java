@@ -9,21 +9,22 @@ import com.squareup.leakcanary.LeakCanary;
 import io.chgocn.plug.utils.CrashHandler;
 
 /**
- * Created by chgocn(chgocn@gmail.com).
+ * @author chgocn(chgocn@gmail.com).
  */
 public class AppContext extends Application{
     private static String TAG = AppContext.class.getSimpleName();
 
-    private static AppContext instance;
+    private static AppContext INSTANCE;
 
     /**
      * support a method to get a instance for the outside
+     * @return instance of AppContext.
      */
-    public synchronized static AppContext getInstance() {
-        if (null == instance) {
-            instance = new AppContext();
+    public static synchronized  AppContext getInstance() {
+        if (null == INSTANCE) {
+            INSTANCE = new AppContext();
         }
-        return instance;
+        return INSTANCE;
     }
 
     @Override

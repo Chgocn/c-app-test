@@ -14,7 +14,15 @@ import io.chgocn.app.R;
 import io.chgocn.plug.activity.BaseActivity;
 import io.chgocn.plug.utils.Log;
 
+/**
+ * Home Activity
+ * this activity will be alive in all application lifecycle if user logged
+ * Created by chgocn(chgocn@gmail.com).
+ * @author chgocn
+ */
 public class HomeActivity extends BaseActivity implements View.OnClickListener {
+
+    private Button errorTestBtn,leakTestBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,8 +33,8 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
     }
 
     private void initView() {
-        Button errorTestBtn =  (Button) findViewById(R.id.error_test);
-        Button leakTestBtn =  (Button) findViewById(R.id.leak_test);
+        errorTestBtn = (Button) findViewById(R.id.error_test);
+        leakTestBtn = (Button) findViewById(R.id.leak_test);
         assert errorTestBtn != null;
         assert leakTestBtn != null;
         errorTestBtn.setOnClickListener(this);

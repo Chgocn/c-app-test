@@ -3,7 +3,7 @@ package io.chgocn.app;
 import com.github.moduth.blockcanary.BlockCanaryContext;
 
 /**
- * Created by bruce on 16/4/29.
+ * @author bruce on 16/4/29.
  */
 public class AppBlockCanaryContext extends BlockCanaryContext {
     // override to provide context like app qualifier, uid, network type, block threshold, log save path
