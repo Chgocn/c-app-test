@@ -18,34 +18,34 @@ import io.chgocn.plug.BuildConfig;
  * @author hugo
  */
 public class PLog {
-    public static boolean isDebug = BuildConfig.LOG_DEBUG;
+    public static boolean DEBUG = BuildConfig.LOG_DEBUG;
     //public static final String PATH = BaseApplication.getCachePath() + "/log";
     public static final String PATH = getOutputLogPath();
-    public static final String PLOG_FILE_NAME = "crash.log";
+    public static final String P_LOG_FILE_NAME = "crash.log";
 
     /**
      * 是否写入日志文件
      */
-    public static final boolean PLOG_WRITE_TO_FILE = true;
+    public static final boolean P_LOG_WRITE_TO_FILE = true;
 
     /**
      * 错误信息
      */
-    public static void e(String TAG, String msg) {
-        Log.e(TAG, log(msg));
-        if (PLOG_WRITE_TO_FILE) {
-            writeLog2File("e", TAG, msg);
+    public static void e(String tag, String msg) {
+        Log.e(tag, log(msg));
+        if (P_LOG_WRITE_TO_FILE) {
+            writeLog2File("e", tag, msg);
         }
     }
 
     /**
      * 警告信息
      */
-    public static void w(String TAG, String msg) {
-        if (isDebug) {
-            Log.w(TAG, log(msg));
-            if (PLOG_WRITE_TO_FILE) {
-                writeLog2File("w", TAG, msg);
+    public static void w(String tag, String msg) {
+        if (DEBUG) {
+            Log.w(tag, log(msg));
+            if (P_LOG_WRITE_TO_FILE) {
+                writeLog2File("w", tag, msg);
             }
         }
     }
@@ -54,11 +54,11 @@ public class PLog {
      * 调试信息
      */
 
-    public static void d(String TAG, String msg) {
-        if (isDebug) {
-            Log.d(TAG, log(msg));
-            if (PLOG_WRITE_TO_FILE) {
-                writeLog2File("d", TAG, msg);
+    public static void d(String tag, String msg) {
+        if (DEBUG) {
+            Log.d(tag, log(msg));
+            if (P_LOG_WRITE_TO_FILE) {
+                writeLog2File("d", tag, msg);
             }
         }
     }
@@ -66,11 +66,11 @@ public class PLog {
     /**
      * 提示信息
      */
-    public static void i(String TAG, String msg) {
-        if (isDebug) {
-            Log.i(TAG, log(msg));
-            if (PLOG_WRITE_TO_FILE) {
-                writeLog2File("i", TAG, msg);
+    public static void i(String tag, String msg) {
+        if (DEBUG) {
+            Log.i(tag, log(msg));
+            if (P_LOG_WRITE_TO_FILE) {
+                writeLog2File("i", tag, msg);
             }
         }
     }
@@ -105,7 +105,7 @@ public class PLog {
             + tag
             + "\r\n"
             + msg;
-        File file = new File(PATH, PLOG_FILE_NAME);
+        File file = new File(PATH, P_LOG_FILE_NAME);
         try {
             FileWriter filerWriter = new FileWriter(file, true);
             BufferedWriter bufWriter = new BufferedWriter(filerWriter);
@@ -123,7 +123,7 @@ public class PLog {
      */
     public static void delFile() {
 
-        File file = new File(PATH, PLOG_FILE_NAME);
+        File file = new File(PATH, P_LOG_FILE_NAME);
         if (file.exists()) {
             file.delete();
         }
@@ -164,7 +164,9 @@ public class PLog {
         String className = targetElement.getClassName();
         className = className.substring(className.lastIndexOf('.') + 1) + ".java";
         int lineNumber = targetElement.getLineNumber();
-        if (lineNumber < 0) lineNumber = 0;
+        if (lineNumber < 0){
+            lineNumber = 0;
+        }
         return "(" + className + ":" + lineNumber + ") " + message;
     }
 

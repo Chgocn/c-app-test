@@ -53,28 +53,28 @@
                 scope: 可以检查的类的范围，例如：public只能检查public修饰的类，private可以检查所有的类
                 excludeScope: 不能检查的类的范围，例如：public，public的类将不被检查，但访问权限小于public的类仍然会检查，其他的权限以此类推
                 tokens: 该属性适用的类型，例如：CLASS_DEF,INTERFACE_DEF -->
-        <module name="JavadocType">
-            <property name="authorFormat" value="\S"/>
-            <property name="scope" value="protected"/>
-            <property name="tokens" value="CLASS_DEF,INTERFACE_DEF"/>
-        </module>
+        <!--<module name="JavadocType">-->
+            <!--<property name="authorFormat" value="\S"/>-->
+            <!--<property name="scope" value="protected"/>-->
+            <!--<property name="tokens" value="CLASS_DEF,INTERFACE_DEF"/>-->
+        <!--</module>-->
 
         <!-- 检查方法的javadoc的注释
                 scope: 可以检查的方法的范围，例如：public只能检查public修饰的方法，private可以检查所有的方法
                 allowMissingParamTags: 是否忽略对参数注释的检查
                 allowMissingThrowsTags: 是否忽略对throws注释的检查
                 allowMissingReturnTag: 是否忽略对return注释的检查 -->
-        <module name="JavadocMethod">
-            <property name="scope" value="private"/>
-            <property name="allowMissingParamTags" value="false"/>
-            <property name="allowMissingThrowsTags" value="false"/>
-            <property name="allowMissingReturnTag" value="false"/>
-            <property name="tokens" value="METHOD_DEF"/>
-            <property name="allowUndeclaredRTE" value="true"/>
-            <property name="allowThrowsTagsForSubclasses" value="true"/>
-            <!--允许get set 方法没有注释-->
-            <property name="allowMissingPropertyJavadoc" value="true"/>
-        </module>
+        <!--<module name="JavadocMethod">-->
+            <!--<property name="scope" value="private"/>-->
+            <!--<property name="allowMissingParamTags" value="false"/>-->
+            <!--<property name="allowMissingThrowsTags" value="false"/>-->
+            <!--<property name="allowMissingReturnTag" value="false"/>-->
+            <!--<property name="tokens" value="METHOD_DEF"/>-->
+            <!--<property name="allowUndeclaredRTE" value="true"/>-->
+            <!--<property name="allowThrowsTagsForSubclasses" value="true"/>-->
+            <!--&lt;!&ndash;允许get set 方法没有注释&ndash;&gt;-->
+            <!--<property name="allowMissingPropertyJavadoc" value="true"/>-->
+        <!--</module>-->
 
         <!-- 检查类变量的注释
                 scope: 检查变量的范围，例如：public只能检查public修饰的变量，private可以检查所有的变量 -->
@@ -206,7 +206,8 @@
           检查class成员属性可见性。只有static final 修饰的成员是可以public的。其他的成员属性必需是private的，除非属性protectedAllowed或者packageAllowed设置了true.
            Public members are not flagged if the name matches the public member regular expression (contains "^serialVersionUID$" by default). Note: Checkstyle 2 used to include "^f[A-Z][a-zA-Z0-9]*$" in the default pattern to allow CMP for EJB 1.1 with the default settings. With EJB 2.0 it is not longer necessary to have public access for persistent fields, hence the default has been changed.
            Rationale: Enforce encapsulation. 强制封装 -->
-        <module name="VisibilityModifier"/>
+        <!--关闭-->
+        <!--<module name="VisibilityModifier"/>-->
 
         <!-- 每一行只能定义一个变量 -->
         <!--TODO 关闭-->

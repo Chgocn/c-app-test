@@ -1,7 +1,6 @@
 package io.chgocn.plug.utils;
 
 import android.graphics.Bitmap;
-import android.net.Uri;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -213,7 +212,7 @@ public class ImageLoadUtils {
         if (url != null && !url.isEmpty()) {
             ImageLoadUtils.getInstance().imageLoader.getDiskCache().remove(url);
             //移除key
-            ImageSize targetSize = ImageSizeUtils.defineTargetSizeForView(new ImageViewAware(imageView), new ImageSize(BaseApplication.sWidthPix, BaseApplication.sHeightPix));
+            ImageSize targetSize = ImageSizeUtils.defineTargetSizeForView(new ImageViewAware(imageView), new ImageSize(BaseApplication.S_WIDTH_PIX, BaseApplication.S_HEIGHT_PIX));
             String memoryCacheKey = MemoryCacheUtils.generateKey(url, targetSize);
             ImageLoadUtils.getInstance().imageLoader.getMemoryCache().remove(memoryCacheKey);
         } else {

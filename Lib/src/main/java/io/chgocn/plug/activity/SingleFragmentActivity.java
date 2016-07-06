@@ -21,7 +21,7 @@ public abstract class SingleFragmentActivity extends BaseActivity {
     /**
      * content fragment
      */
-    private Fragment mFragment;
+    private Fragment fragment;
 
     @Override
     protected int getContentView() {
@@ -34,8 +34,8 @@ public abstract class SingleFragmentActivity extends BaseActivity {
 
         // replace content with fragment
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        mFragment = getContentFragment();
-        fragmentTransaction.replace(R.id.fragment, mFragment);
+        fragment = getContentFragment();
+        fragmentTransaction.replace(R.id.fragment, fragment);
         fragmentTransaction.commit();
     }
 
@@ -48,22 +48,24 @@ public abstract class SingleFragmentActivity extends BaseActivity {
     // [+] option menu
     @Override
     public boolean onOptionsItemSelected(final MenuItem item) {
-        if (mFragment != null)
-            return mFragment.onOptionsItemSelected(item);
-
+        if (fragment != null){
+            return fragment.onOptionsItemSelected(item);
+        }
         return super.onOptionsItemSelected(item);
     }
 
     @Override
     public void invalidateOptionsMenu() {
-        if (menuCreated)
+        if (menuCreated){
             super.invalidateOptionsMenu();
+        }
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        if (mFragment != null)
-            mFragment.onCreateOptionsMenu(menu, getMenuInflater());
+        if (fragment != null){
+            fragment.onCreateOptionsMenu(menu, getMenuInflater());
+        }
 
         boolean created = super.onCreateOptionsMenu(menu);
         menuCreated = true;
@@ -72,8 +74,9 @@ public abstract class SingleFragmentActivity extends BaseActivity {
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
-        if (mFragment != null)
-            mFragment.onPrepareOptionsMenu(menu);
+        if (fragment != null){
+            fragment.onPrepareOptionsMenu(menu);
+        }
         return super.onPrepareOptionsMenu(menu);
     }
     // [-] option menu

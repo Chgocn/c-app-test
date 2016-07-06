@@ -1,5 +1,6 @@
 package io.chgocn.plug.activity;
 
+import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Color;
@@ -182,7 +183,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     /**
      * make your own navigation click listener when {@link #isShowCustomNavView()}  is override && return true.
-     * @param viewClicked
+     * @param viewClicked clicked view.
      */
     protected void getNavigationOnClickListener(View viewClicked){
 
@@ -307,11 +308,12 @@ public abstract class BaseActivity extends AppCompatActivity {
     /**
      * Shows the progress UI and hides the login_bg form.
      */
-    private MaterialDialog mProgressDialog;
+    private MaterialDialog progressDialog;
 
     public void hiddenProgress() {
-        if (null != mProgressDialog && mProgressDialog.isShowing())
-            mProgressDialog.dismiss();
+        if (null != progressDialog && progressDialog.isShowing()){
+            progressDialog.dismiss();
+        }
     }
 
     public void showProgress(int contentResId) {
@@ -319,15 +321,15 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     public void showProgress(String content) {
-        if (null == mProgressDialog) {
-            mProgressDialog = new MaterialDialog.Builder(this)
+        if (null == progressDialog) {
+            progressDialog = new MaterialDialog.Builder(this)
                     .content(content)
                     .cancelable(dialogCancelAble)
                     .progress(true, 0)
                     .show();
         } else {
-            mProgressDialog.setContent(content);
-            mProgressDialog.show();
+            progressDialog.setContent(content);
+            progressDialog.show();
         }
     }
     // [-] Progress Dialog
@@ -449,4 +451,14 @@ public abstract class BaseActivity extends AppCompatActivity {
         // end the Activity & remove it from stack
         AppManager.getAppManager().finishActivity(this);
     }
+
+    @Override
+    public Resources getResources() {
+        Resources res = super.getResources();
+        Configuration config=new Configuration();
+        config.setToDefaults();
+        res.updateConfiguration(config,res.getDisplayMetrics() );
+        return res;
+    }
+
 }

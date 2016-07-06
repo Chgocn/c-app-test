@@ -43,7 +43,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             buildConfigField 'String','API_SERVER_URL','"http://api.com.cn/V0.1/"'
             buildConfigField 'boolean','LOG_DEBUG','false'
-            signingConfig getSigningConfig()
+            //signingConfig getSigningConfig()
             applicationVariants.all { variant ->
                 variant.outputs.each { output ->
                     def date = new Date();

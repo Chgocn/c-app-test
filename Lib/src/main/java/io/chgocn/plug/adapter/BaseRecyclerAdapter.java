@@ -19,37 +19,37 @@ import java.util.*;
  */
 public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<BaseRecyclerAdapter.ViewHolder> {
 
-    protected Context mContext;
-    private int mLayoutResId;
+    protected Context context;
+    private int layoutResId;
 
     protected List<T> mItems;
-    private List<T> EMPTY = new ArrayList<>();
+    private List<T> empty = new ArrayList<>();
 
     /**
      * Create adapter
      *
-     * @param context
+     * @param context context
      * @param layoutResId
      */
     public BaseRecyclerAdapter(final Context context, final int layoutResId) {
         this(context);
-        this.mLayoutResId = layoutResId;
+        this.layoutResId = layoutResId;
     }
 
     public BaseRecyclerAdapter(List<T> items) {
         if (items == null)
-            items = EMPTY;
+            items = empty;
         this.mItems = items;
     }
 
     public BaseRecyclerAdapter(final Context context) {
-        this.mContext = context;
+        this.context = context;
 
-        mItems = EMPTY;
+        mItems = empty;
     }
 
     public int getLayoutId(int viewType) {
-        return this.mLayoutResId;
+        return this.layoutResId;
     }
 
     @Override
@@ -116,7 +116,7 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<BaseRe
         if (items != null)
             this.mItems = items;
         else
-            this.mItems = EMPTY;
+            this.mItems = empty;
         notifyDataSetChanged();
     }
 

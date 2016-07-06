@@ -68,7 +68,7 @@ public abstract class TabPagerActivity<V extends PagerAdapter & FragmentProvider
     /**
      * Get title for position
      *
-     * @param position
+     * @param position position
      * @return title
      */
     protected String getTitle(final int position) {
@@ -78,7 +78,7 @@ public abstract class TabPagerActivity<V extends PagerAdapter & FragmentProvider
     /**
      * Get icon for position
      *
-     * @param position
+     * @param position position
      * @return iconResId
      */
     protected int getIcon(final int position) {
@@ -88,7 +88,7 @@ public abstract class TabPagerActivity<V extends PagerAdapter & FragmentProvider
     /**
      * Set tab and pager as gone or visible
      *
-     * @param gone
+     * @param gone view gone.
      * @return this activity
      */
     protected TabPagerActivity<V> setGone(boolean gone) {
@@ -105,7 +105,7 @@ public abstract class TabPagerActivity<V extends PagerAdapter & FragmentProvider
      * <p>
      * Sub-classes may override this method
      *
-     * @param position
+     * @param position position.
      */
     protected void setCurrentItem(final int position) {
         // Intentionally left blank
@@ -186,13 +186,16 @@ public abstract class TabPagerActivity<V extends PagerAdapter & FragmentProvider
 
         // setup ViewPager
         pager = (ViewPager) findViewById(R.id.vp_pages);
-        pager.setOnPageChangeListener(this);
+        //pager.setOnPageChangeListener(this);
+        assert pager != null;
+        pager.removeOnPageChangeListener(this);
         // keep all fragment alive in the life cycle
         pager.setOffscreenPageLimit(OFFSCREEN_PAGES);
         pager.setScrollable(false);
 
         //set up TabHost
         host = (TabHost) findViewById(android.R.id.tabhost);
+        assert host != null;
         host.setup();
         host.setOnTabChangedListener(this);
     }

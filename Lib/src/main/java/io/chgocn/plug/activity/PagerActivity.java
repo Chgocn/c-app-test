@@ -31,33 +31,35 @@ public abstract class PagerActivity extends BaseActivity implements OnPageChange
      */
     protected Fragment getFragment() {
         FragmentProvider provider = getProvider();
-        if (provider != null)
+        if (provider != null){
             return provider.getSelected();
-        else
+        }else{
             return null;
+        }
     }
 
     @Override
     public boolean onOptionsItemSelected(final MenuItem item) {
         Fragment fragment = getFragment();
-        if (fragment != null)
+        if (fragment != null){
             return fragment.onOptionsItemSelected(item);
-
+        }
         return super.onOptionsItemSelected(item);
     }
 
     @Override
     public void invalidateOptionsMenu() {
-        if (menuCreated)
+        if (menuCreated){
             super.invalidateOptionsMenu();
+        }
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         Fragment fragment = getFragment();
-        if (fragment != null)
+        if (fragment != null){
             fragment.onCreateOptionsMenu(menu, getMenuInflater());
-
+        }
         boolean created = super.onCreateOptionsMenu(menu);
         menuCreated = true;
         return created;
@@ -66,8 +68,9 @@ public abstract class PagerActivity extends BaseActivity implements OnPageChange
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         Fragment fragment = getFragment();
-        if (fragment != null)
+        if (fragment != null){
             fragment.onPrepareOptionsMenu(menu);
+        }
         return super.onPrepareOptionsMenu(menu);
     }
 

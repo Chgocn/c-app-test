@@ -30,39 +30,39 @@ public class BaseApplication extends Application {
     private static String REFRESH_TIME = "refresh_time.pref";
     private static String NO_CLEAR = "no_clear.pref";
 
-    static Context _context;
-    static Resources _resource;
+    static Context _CONTEXT;
+    static Resources _RESOURCE;
 
-    public static float sDensity;
-    public static int sWidthDp;
-    public static int sWidthPix;
-    public static int sHeightPix;
-    public static float sScaledDensity;
-    private static Toast toast;
+    public static float S_DENSITY;
+    public static int S_WIDTH_DP;
+    public static int S_WIDTH_PIX;
+    public static int S_HEIGHT_PIX;
+    public static float S_SCALED_DENSITY;
+    private static Toast TOAST;
 
     @Override
     public void onCreate() {
         super.onCreate();
-        _context = getApplicationContext();
-        _resource = _context.getResources();
+        _CONTEXT = getApplicationContext();
+        _RESOURCE = _CONTEXT.getResources();
 
         calcDisplayMetrics();
     }
 
     public static synchronized BaseApplication context() {
-        return (BaseApplication) _context;
+        return (BaseApplication) _CONTEXT;
     }
 
     public static Resources resources() {
-        return _resource;
+        return _RESOURCE;
     }
 
     private void calcDisplayMetrics() {
-        sDensity = getResources().getDisplayMetrics().density;
-        sWidthPix = getResources().getDisplayMetrics().widthPixels;
-        sHeightPix = getResources().getDisplayMetrics().heightPixels;
-        sScaledDensity = getResources().getDisplayMetrics().scaledDensity;
-        sWidthDp = (int) (sWidthPix / sDensity);
+        S_DENSITY = getResources().getDisplayMetrics().density;
+        S_WIDTH_PIX = getResources().getDisplayMetrics().widthPixels;
+        S_HEIGHT_PIX = getResources().getDisplayMetrics().heightPixels;
+        S_SCALED_DENSITY = getResources().getDisplayMetrics().scaledDensity;
+        S_WIDTH_DP = (int) (S_WIDTH_PIX / S_DENSITY);
     }
 
     // [+] Shared Preference
@@ -187,8 +187,8 @@ public class BaseApplication extends Application {
     /**
      * 移除某个key值已经对应的值
      *
-     * @param context
-     * @param key
+     * @param context context
+     * @param key key
      */
     public static void remove(Context context, String key) {
         SharedPreferences sp = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
@@ -200,9 +200,9 @@ public class BaseApplication extends Application {
     /**
      * 查询某个key是否已经存在
      *
-     * @param context
-     * @param key
-     * @return
+     * @param context context
+     * @param key key
+     * @return value
      */
     public static boolean contains(Context context, String key) {
         SharedPreferences sp = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
@@ -212,8 +212,8 @@ public class BaseApplication extends Application {
     // [-] Display Screen Param
 
     // [+] Show Toast
-    private static String lastToast = "";
-    private static long lastToastTime;
+    private static String LAST_TOAST = "";
+    private static long LAST_TOAST_TIME;
 
     public static void showToast(int message) {
         showToast(message, Toast.LENGTH_LONG, 0);
@@ -256,15 +256,13 @@ public class BaseApplication extends Application {
     }
 
     public static void showToast(String message, int duration, int icon, int gravity) {
-        // return if message is empty
-        if (TextUtils.isEmpty(message))
+        // return if message is empty || return if message same as the last in a short time(2s)
+        if (TextUtils.isEmpty(message) || message.equalsIgnoreCase(LAST_TOAST) && Math.abs(System.currentTimeMillis() - LAST_TOAST_TIME) < 2000){
             return;
+        }
 
-        // return if message same as the last in a short time(2s)
-        if (message.equalsIgnoreCase(lastToast) && Math.abs(System.currentTimeMillis() - lastToastTime) < 2000)
-            return;
-        if (toast == null) {
-            toast = new Toast(context());
+        if (TOAST == null) {
+            TOAST = new Toast(context());
         }
         View view = LayoutInflater.from(context()).inflate(R.layout.toast, null);
         ((TextView) view.findViewById(R.id.toast_message)).setText(message);
@@ -272,24 +270,24 @@ public class BaseApplication extends Application {
             ((ImageView) view.findViewById(R.id.toast_icon)).setImageResource(icon);
             view.findViewById(R.id.toast_icon).setVisibility(View.VISIBLE);
         }
-        toast.setView(view);
-        toast.getView().setOnClickListener(new View.OnClickListener() {
+        TOAST.setView(view);
+        TOAST.getView().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                toast.getView().setVisibility(View.INVISIBLE);
+                TOAST.getView().setVisibility(View.INVISIBLE);
             }
         });
 
         if (gravity == Gravity.CENTER) {
-            toast.setGravity(gravity, 0, 0);
+            TOAST.setGravity(gravity, 0, 0);
         } else {
-            toast.setGravity(gravity, 0, 35);
+            TOAST.setGravity(gravity, 0, 35);
         }
 
-        toast.setDuration(duration);
-        toast.show();
-        lastToast = message;
-        lastToastTime = System.currentTimeMillis();
+        TOAST.setDuration(duration);
+        TOAST.show();
+        LAST_TOAST = message;
+        LAST_TOAST_TIME = System.currentTimeMillis();
     }
     // [-] Show Toast
 
