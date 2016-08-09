@@ -14,48 +14,47 @@ import java.util.Stack;
  * @since 2012-3-21
  * @update 2014-07-22
  */
-public class AppManager {
+public final class AppManager {
 
-    private static Stack<Activity> activityStack;
-    private static AppManager instance;
+    private static Stack<Activity> ACTIVITY_STACK;
+    private static AppManager INSTANCE;
 
     private AppManager() {
     }
 
     /**
-     * support a method to get a instance for the outside
+     * support a method to get a INSTANCE for the outside
      */
     public static AppManager getAppManager() {
-        if (null == instance) {
-            instance = new AppManager();
+        if (null == INSTANCE) {
+            INSTANCE = new AppManager();
         }
-        return instance;
+        return INSTANCE;
     }
 
     /**
      * add the Activity into stack
      */
-    synchronized public void addActivity(Activity activity) {
-        if (activityStack == null) {
-            activityStack = new Stack<Activity>();
+    public synchronized void addActivity(Activity activity) {
+        if (ACTIVITY_STACK == null) {
+            ACTIVITY_STACK = new Stack<Activity>();
         }
-        activityStack.add(activity);
+        ACTIVITY_STACK.add(activity);
     }
 
     /**
      * get the current Activity(the last push to stack)
      */
-    synchronized public Activity currentActivity() {
-        Activity activity = activityStack.lastElement();
-        return activity;
+    public synchronized Activity currentActivity() {
+        return ACTIVITY_STACK.lastElement();
     }
 
     /**
      * end the current Activity(the last push to stack)
      */
-    synchronized public void finishActivity() {
+    public synchronized void finishActivity() {
         try {
-            Activity activity = activityStack.lastElement();
+            Activity activity = ACTIVITY_STACK.lastElement();
             finishActivity(activity);
         } catch (Exception e) {
             e.printStackTrace();
@@ -63,23 +62,23 @@ public class AppManager {
     }
 
     /**
-     * end the Activity with class instance
+     * end the Activity with class INSTANCE
      * remove the activity from stack and finish it
      */
-    synchronized public void finishActivity(Activity activity) {
+    public synchronized void finishActivity(Activity activity) {
         if (activity != null) {
-            activityStack.remove(activity);
+            ACTIVITY_STACK.remove(activity);
             activity.finish();
-            activity = null;
+            //activity = null;
         }
     }
 
     /**
      * end the Activity with class name
      */
-    synchronized public void finishActivity(Class<?> cls) {
+    public synchronized void finishActivity(Class<?> cls) {
         Stack<Activity> tempActivityStack = new Stack<>();
-        tempActivityStack.addAll(activityStack);
+        tempActivityStack.addAll(ACTIVITY_STACK);
 
         for (Activity activity : tempActivityStack) {
             if (activity.getClass().equals(cls)) {
@@ -91,9 +90,9 @@ public class AppManager {
     /**
      * end the Activity with class name
      */
-    synchronized public void finishActivity(Class<?> cls, int resultCode) {
+    public synchronized void finishActivity(Class<?> cls, int resultCode) {
         Stack<Activity> tempActivityStack = new Stack<>();
-        tempActivityStack.addAll(activityStack);
+        tempActivityStack.addAll(ACTIVITY_STACK);
 
         for (Activity activity : tempActivityStack) {
             if (activity.getClass().equals(cls)) {
@@ -106,9 +105,9 @@ public class AppManager {
     /**
      * end all the activities except Activity with class name
      */
-    synchronized public void finishAllActivityExcept(Class<?> cls) {
+    public synchronized void finishAllActivityExcept(Class<?> cls) {
         Stack<Activity> tempActivityStack = new Stack<>();
-        tempActivityStack.addAll(activityStack);
+        tempActivityStack.addAll(ACTIVITY_STACK);
 
         for (Activity activity : tempActivityStack) {
             if (!activity.getClass().equals(cls)) {
@@ -120,13 +119,13 @@ public class AppManager {
     /**
      * end all the activity
      */
-    synchronized public void finishAllActivity() {
-        for (int i = 0, size = activityStack.size(); i < size; i++) {
-            if (null != activityStack.get(i)) {
-                activityStack.get(i).finish();
+    public synchronized void finishAllActivity() {
+        for (int i = 0, size = ACTIVITY_STACK.size(); i < size; i++) {
+            if (null != ACTIVITY_STACK.get(i)) {
+                ACTIVITY_STACK.get(i).finish();
             }
         }
-        activityStack.clear();
+        ACTIVITY_STACK.clear();
     }
 
     /**
@@ -137,6 +136,7 @@ public class AppManager {
             finishAllActivity();
             System.exit(0);
         } catch (Exception e) {
+            Log.e("AppManager: " + e.getMessage());
         }
     }
 }

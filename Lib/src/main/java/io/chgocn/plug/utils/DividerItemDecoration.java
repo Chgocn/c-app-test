@@ -18,24 +18,22 @@ import io.chgocn.plug.R;
  */
 public class DividerItemDecoration extends RecyclerView.ItemDecoration {
 
-    private static final int[] ATTRS = new int[]{
-            android.R.attr.listDivider
-    };
+    private static final int[] ATTRS = new int[]{android.R.attr.listDivider};
 
     public static final int HORIZONTAL_LIST = LinearLayoutManager.HORIZONTAL;
 
     public static final int VERTICAL_LIST = LinearLayoutManager.VERTICAL;
 
-    private Drawable mDivider;
+    private Drawable drawable;
 
-    private int mOrientation;
+    private int orientation;
 
     private Context context;
 
     public DividerItemDecoration(Context context, int orientation) {
         this.context = context;
         final TypedArray a = context.obtainStyledAttributes(ATTRS);
-        mDivider = a.getDrawable(0);
+        drawable = a.getDrawable(0);
         a.recycle();
         setOrientation(orientation);
     }
@@ -44,13 +42,13 @@ public class DividerItemDecoration extends RecyclerView.ItemDecoration {
         if (orientation != HORIZONTAL_LIST && orientation != VERTICAL_LIST) {
             throw new IllegalArgumentException("invalid orientation");
         }
-        mOrientation = orientation;
+        this.orientation = orientation;
     }
 
     @Override
     public void onDraw(Canvas c, RecyclerView parent) {
         Log.v("DividerItemDecoration", "onDraw()");
-        if (mOrientation == VERTICAL_LIST) {
+        if (orientation == VERTICAL_LIST) {
             drawVertical(c, parent);
         } else {
             drawHorizontal(c, parent);
@@ -68,10 +66,10 @@ public class DividerItemDecoration extends RecyclerView.ItemDecoration {
             final RecyclerView.LayoutParams params = (RecyclerView.LayoutParams) child
                     .getLayoutParams();
             final int top = child.getBottom() + params.bottomMargin;
-            final int bottom = top + mDivider.getIntrinsicHeight();
-            mDivider.setBounds(left, top, right, bottom);
-            mDivider.setColorFilter(context.getResources().getColor(R.color.grid_divider), PorterDuff.Mode.ADD);
-            mDivider.draw(c);
+            final int bottom = top + drawable.getIntrinsicHeight();
+            drawable.setBounds(left, top, right, bottom);
+            drawable.setColorFilter(context.getResources().getColor(R.color.grid_divider), PorterDuff.Mode.ADD);
+            drawable.draw(c);
         }
     }
 
@@ -84,19 +82,19 @@ public class DividerItemDecoration extends RecyclerView.ItemDecoration {
             final View child = parent.getChildAt(i);
             final RecyclerView.LayoutParams params = (RecyclerView.LayoutParams) child.getLayoutParams();
             final int left = child.getRight() + params.rightMargin;
-            final int right = left + mDivider.getIntrinsicHeight();
-            mDivider.setBounds(left, top, right, bottom);
-            mDivider.setColorFilter(context.getResources().getColor(R.color.grid_divider), PorterDuff.Mode.ADD);
-            mDivider.draw(c);
+            final int right = left + drawable.getIntrinsicHeight();
+            drawable.setBounds(left, top, right, bottom);
+            drawable.setColorFilter(context.getResources().getColor(R.color.grid_divider), PorterDuff.Mode.ADD);
+            drawable.draw(c);
         }
     }
 
     @Override
     public void getItemOffsets(Rect outRect, int itemPosition, RecyclerView parent) {
-        if (mOrientation == VERTICAL_LIST) {
-            outRect.set(0, 0, 0, mDivider.getIntrinsicHeight());
+        if (orientation == VERTICAL_LIST) {
+            outRect.set(0, 0, 0, drawable.getIntrinsicHeight());
         } else {
-            outRect.set(0, 0, mDivider.getIntrinsicWidth(), 0);
+            outRect.set(0, 0, drawable.getIntrinsicWidth(), 0);
         }
     }
 }

@@ -34,7 +34,7 @@ import io.chgocn.plug.utils.SystemBarTintManager;
  */
 public abstract class BaseActivity extends AppCompatActivity {
 
-    private final static String TAG = BaseActivity.class.getSimpleName();
+    private static final String TAG = BaseActivity.class.getSimpleName();
 
     private boolean statusBarTranslucent = false;
     private boolean showHomeAsUp = true;
@@ -364,7 +364,7 @@ public abstract class BaseActivity extends AppCompatActivity {
      * @return long
      */
     protected long getLongExtra(final String name) {
-        return getIntent().getLongExtra(name, -1l);
+        return getIntent().getLongExtra(name, -1L);
     }
 
     /**

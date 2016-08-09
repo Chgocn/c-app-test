@@ -3,11 +3,12 @@ package io.chgocn.plug.adapter;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.view.ViewGroup;
-import io.chgocn.plug.fragment.FragmentProvider;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
+
+import io.chgocn.plug.fragment.FragmentProvider;
 
 /**
  * Pager adapter that provides the current fragment
@@ -56,32 +57,35 @@ public abstract class FragmentPagerAdapter extends android.support.v4.app.Fragme
             selected = null;
         }
 
-        if (changed)
+        if (changed){
             activity.invalidateOptionsMenu();
+        }
     }
 
     // [+] save status
-    private List<WeakReference<Fragment>> mList = new ArrayList<>();
+    private List<WeakReference<Fragment>> list = new ArrayList<>();
 
     public List<WeakReference<Fragment>> getFragments() {
-        for (int i = mList.size() - 1; i >= 0; --i) {
-            if (null == mList.get(i).get()) {
-                mList.remove(i);
+        for (int i = list.size() - 1; i >= 0; --i) {
+            if (null == list.get(i).get()) {
+                list.remove(i);
             }
         }
-        return mList;
+        return list;
     }
 
     protected void saveFragment(Fragment fragment) {
-        if (fragment == null)
+        if (fragment == null || list.contains(new WeakReference<>(fragment))){
             return;
-
-        for (WeakReference<Fragment> item : mList) {
-            if (item.get() == fragment)
-                return;
         }
 
-        mList.add(new WeakReference<>(fragment));
+//        for (WeakReference<Fragment> item : list) {
+//            if (item.get() == fragment){
+//                return;
+//            }
+//        }
+
+        list.add(new WeakReference<>(fragment));
     }
     // [-] save status
 

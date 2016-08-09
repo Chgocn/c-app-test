@@ -35,8 +35,9 @@ public abstract class BaseFragment extends android.support.v4.app.Fragment {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (!isUsable())
+        if (!isUsable()){
             return false;
+        }
 
         switch (item.getItemId()) {
             case (android.R.id.home):
@@ -51,7 +52,6 @@ public abstract class BaseFragment extends android.support.v4.app.Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(getContentView(),container,false);
-        // & fuck shareSDK，not support api callback tag.
         if (!fragmentResume && fragmentVisible) {//
             onFragmentCreateView(view);
         }

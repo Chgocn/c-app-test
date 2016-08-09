@@ -24,7 +24,7 @@ public class DividerGridItemDecoration extends RecyclerView.ItemDecoration {
             android.R.attr.listDivider
     };
 
-    private Drawable mDivider;
+    private Drawable divider;
     private Context context;
 
     private int mOrientation;
@@ -32,7 +32,7 @@ public class DividerGridItemDecoration extends RecyclerView.ItemDecoration {
     public DividerGridItemDecoration(Context context) {
         this.context = context;
         final TypedArray a = context.obtainStyledAttributes(ATTRS);
-        mDivider = a.getDrawable(0);
+        divider = a.getDrawable(0);
         a.recycle();
     }
 
@@ -60,12 +60,12 @@ public class DividerGridItemDecoration extends RecyclerView.ItemDecoration {
             final View child = parent.getChildAt(i);
             final RecyclerView.LayoutParams params = (RecyclerView.LayoutParams) child.getLayoutParams();
             final int left = child.getLeft() - params.leftMargin;
-            final int right = child.getRight() + params.rightMargin + mDivider.getIntrinsicWidth();
+            final int right = child.getRight() + params.rightMargin + divider.getIntrinsicWidth();
             final int top = child.getBottom() + params.bottomMargin;
-            final int bottom = top + mDivider.getIntrinsicHeight();
-            mDivider.setBounds(left, top, right, bottom);
-            mDivider.setColorFilter(context.getResources().getColor(R.color.grid_divider), PorterDuff.Mode.ADD);
-            mDivider.draw(c);
+            final int bottom = top + divider.getIntrinsicHeight();
+            divider.setBounds(left, top, right, bottom);
+            divider.setColorFilter(context.getResources().getColor(R.color.grid_divider), PorterDuff.Mode.ADD);
+            divider.draw(c);
         }
     }
 
@@ -77,10 +77,10 @@ public class DividerGridItemDecoration extends RecyclerView.ItemDecoration {
             final int top = child.getTop() - params.topMargin;
             final int bottom = child.getBottom() + params.bottomMargin;
             final int left = child.getRight() + params.rightMargin;
-            final int right = left + mDivider.getIntrinsicWidth();
-            mDivider.setBounds(left, top, right, bottom);
-            mDivider.setColorFilter(context.getResources().getColor(R.color.grid_divider), PorterDuff.Mode.ADD);
-            mDivider.draw(c);
+            final int right = left + divider.getIntrinsicWidth();
+            divider.setBounds(left, top, right, bottom);
+            divider.setColorFilter(context.getResources().getColor(R.color.grid_divider), PorterDuff.Mode.ADD);
+            divider.draw(c);
         }
     }
 
@@ -131,11 +131,11 @@ public class DividerGridItemDecoration extends RecyclerView.ItemDecoration {
         int spanCount = getSpanCount(parent);
         int childCount = parent.getAdapter().getItemCount();
         if (isLastRaw(parent, itemPosition, spanCount, childCount)) {
-            outRect.set(0, 0, mDivider.getIntrinsicWidth(), 0);
+            outRect.set(0, 0, divider.getIntrinsicWidth(), 0);
         } else if (isLastColum(parent, itemPosition, spanCount, childCount)) {
-            outRect.set(0, 0, 0, mDivider.getIntrinsicHeight());
+            outRect.set(0, 0, 0, divider.getIntrinsicHeight());
         } else {
-            outRect.set(0, 0, mDivider.getIntrinsicWidth(), mDivider.getIntrinsicHeight());
+            outRect.set(0, 0, divider.getIntrinsicWidth(), divider.getIntrinsicHeight());
         }
     }
 }

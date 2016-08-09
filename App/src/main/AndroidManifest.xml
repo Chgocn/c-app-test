@@ -20,7 +20,7 @@
             android:name=".activity.CustomErrorActivity"
             android:label="@string/error_title"
             android:process=":error_activity">
-            <!-- You can also use this instead of using CrashHandler.setErrorActivityClass(CustomErrorActivity.class); -->
+            <!-- You can also use this instead of using CrashHandler.setErrorActClass(CustomErrorActivity.class); -->
             <!--<intent-filter>-->
             <!--<action android:name="io.chgocn.app.ERROR" />-->
             <!--</intent-filter>-->

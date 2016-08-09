@@ -48,7 +48,7 @@ import io.chgocn.plug.activity.DefaultErrorActivity;
 @SuppressLint("NewApi")
 public final class CrashHandler {
 
-    private final static String TAG = "CrashHandler";
+    private static final String TAG = "CrashHandler";
 
     //Extras passed to the error activity
     private static final String EXTRA_RESTART_ACTIVITY_CLASS = "io.chgocn.plug.EXTRA_RESTART_ACTIVITY_CLASS";
@@ -70,21 +70,21 @@ public final class CrashHandler {
     private static final String SHARED_PREFERENCES_FIELD_TIMESTAMP = "last_crash_timestamp";
 
     //Internal variables
-    private static Application application;
-    private static WeakReference<Activity> lastActivityCreated = new WeakReference<>(null);
-    private static boolean isInBackground = false;
+    private static Application APPLICATION;
+    private static WeakReference<Activity> LAST_ACTIVITY_CREATED = new WeakReference<>(null);
+    private static boolean IS_IN_BACKGROUND = false;
 
     //Settable properties and their defaults
-    private static boolean launchErrorActivityWhenInBackground = true;
-    private static boolean showErrorDetails = true;
-    private static boolean enableAppRestart = true;
-    private static int defaultErrorActivityDrawableId = R.drawable.img_error;
-    private static Class<? extends Activity> errorActivityClass = null;
-    private static Class<? extends Activity> restartActivityClass = null;
+    private static boolean LAUNCH_ERROR_ACT_WHEN_IN_BG = true;
+    private static boolean SHOW_ERROR_DETAILS = true;
+    private static boolean ENABLE_APP_RESTART = true;
+    private static int DEF_ERROR_ACT_DRAWABLE_ID = R.drawable.img_error;
+    private static Class<? extends Activity> ERROR_ACT_CLASS = null;
+    private static Class<? extends Activity> RESTART_ACT_CLASS = null;
     private static EventListener eventListener = null;
 
     /**
-     * Installs CrashHandler on the application using the default error activity.
+     * Installs CrashHandler on the APPLICATION using the default error activity.
      *
      * @param context Context to use for obtaining the ApplicationContext. Must not be null.
      */
@@ -107,7 +107,7 @@ public final class CrashHandler {
                         Log.e(TAG, "IMPORTANT WARNING! You already have an UncaughtExceptionHandler, are you sure this is correct? If you use ACRA, Crashlytics or similar libraries, you must initialize them AFTER CrashHandler! Installing anyway, but your original handler will not be called.");
                     }
 
-                    application = (Application) context.getApplicationContext();
+                    APPLICATION = (Application) context.getApplicationContext();
 
                     //We define a default exception handler that does what we want so it can be called from Crashlytics/ACRA
                     Thread.setDefaultUncaughtExceptionHandler(new Thread.UncaughtExceptionHandler() {
@@ -115,28 +115,28 @@ public final class CrashHandler {
                         public void uncaughtException(Thread thread, final Throwable throwable) {
                             Log.e(TAG, "App has crashed, executing CrashHandler's UncaughtExceptionHandler", throwable);
 
-                            if (hasCrashedInTheLastSeconds(application)) {
+                            if (hasCrashedInTheLastSeconds(APPLICATION)) {
                                 Log.e(TAG, "App already crashed in the last 2 seconds, not starting custom error activity because we could enter a restart loop. Are you sure that your app does not crash directly on init?", throwable);
                                 if (oldHandler != null) {
                                     oldHandler.uncaughtException(thread, throwable);
                                     return;
                                 }
                             } else {
-                                setLastCrashTimestamp(application, new Date().getTime());
+                                setLastCrashTimestamp(APPLICATION, new Date().getTime());
 
-                                if (errorActivityClass == null) {
-                                    errorActivityClass = guessErrorActivityClass(application);
+                                if (ERROR_ACT_CLASS == null) {
+                                    ERROR_ACT_CLASS = guessErrorActivityClass(APPLICATION);
                                 }
 
-                                if (isStackTraceLikelyConflictive(throwable, errorActivityClass)) {
-                                    Log.e(TAG, "Your application class or your error activity have crashed, the custom activity will not be launched!");
+                                if (isStackTraceLikelyConflictive(throwable, ERROR_ACT_CLASS)) {
+                                    Log.e(TAG, "Your APPLICATION class or your error activity have crashed, the custom activity will not be launched!");
                                     if (oldHandler != null) {
                                         oldHandler.uncaughtException(thread, throwable);
                                         return;
                                     }
-                                } else if (launchErrorActivityWhenInBackground || !isInBackground) {
+                                } else if (LAUNCH_ERROR_ACT_WHEN_IN_BG || !IS_IN_BACKGROUND) {
 
-                                    final Intent intent = new Intent(application, errorActivityClass);
+                                    final Intent intent = new Intent(APPLICATION, ERROR_ACT_CLASS);
                                     StringWriter sw = new StringWriter();
                                     PrintWriter pw = new PrintWriter(sw);
                                     throwable.printStackTrace(pw);
@@ -151,57 +151,57 @@ public final class CrashHandler {
                                         stackTraceString = stackTraceString.substring(0, MAX_STACK_TRACE_SIZE - disclaimer.length()) + disclaimer;
                                     }
 
-                                    if (enableAppRestart && restartActivityClass == null) {
-                                        //We can set the restartActivityClass because the app will terminate right now,
+                                    if (ENABLE_APP_RESTART && RESTART_ACT_CLASS == null) {
+                                        //We can set the RESTART_ACT_CLASS because the app will terminate right now,
                                         //and when relaunched, will be null again by default.
-                                        restartActivityClass = guessRestartActivityClass(application);
-                                    } else if (!enableAppRestart) {
+                                        RESTART_ACT_CLASS = guessRestartActivityClass(APPLICATION);
+                                    } else if (!ENABLE_APP_RESTART) {
                                         //In case someone sets the activity and then decides to not restart
-                                        restartActivityClass = null;
+                                        RESTART_ACT_CLASS = null;
                                     }
 
                                     intent.putExtra(EXTRA_STACK_TRACE, stackTraceString);
-                                    intent.putExtra(EXTRA_RESTART_ACTIVITY_CLASS, restartActivityClass);
-                                    intent.putExtra(EXTRA_SHOW_ERROR_DETAILS, showErrorDetails);
+                                    intent.putExtra(EXTRA_RESTART_ACTIVITY_CLASS, RESTART_ACT_CLASS);
+                                    intent.putExtra(EXTRA_SHOW_ERROR_DETAILS, SHOW_ERROR_DETAILS);
                                     intent.putExtra(EXTRA_EVENT_LISTENER, eventListener);
-                                    intent.putExtra(EXTRA_IMAGE_DRAWABLE_ID, defaultErrorActivityDrawableId);
+                                    intent.putExtra(EXTRA_IMAGE_DRAWABLE_ID, DEF_ERROR_ACT_DRAWABLE_ID);
                                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                     if (eventListener != null) {
                                         eventListener.onLaunchErrorActivity();
                                     }
-                                    application.startActivity(intent);
+                                    APPLICATION.startActivity(intent);
                                 }
                             }
-                            final Activity lastActivity = lastActivityCreated.get();
+                            final Activity lastActivity = LAST_ACTIVITY_CREATED.get();
                             if (lastActivity != null) {
                                 //We finish the activity, this solves a bug which causes infinite recursion.
                                 //This is unsolvable in API<14, so beware!
                                 //See: https://github.com/ACRA/acra/issues/42
                                 lastActivity.finish();
-                                lastActivityCreated.clear();
+                                LAST_ACTIVITY_CREATED.clear();
                             }
                             killCurrentProcess();
                         }
                     });
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
-                        application.registerActivityLifecycleCallbacks(new Application.ActivityLifecycleCallbacks() {
+                        APPLICATION.registerActivityLifecycleCallbacks(new Application.ActivityLifecycleCallbacks() {
                             int currentlyStartedActivities = 0;
 
                             @Override
                             public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
-                                if (activity.getClass() != errorActivityClass) {
+                                if (activity.getClass() != ERROR_ACT_CLASS) {
                                     // Copied from ACRA:
                                     // Ignore activityClass because we want the last
-                                    // application Activity that was started so that we can
+                                    // APPLICATION Activity that was started so that we can
                                     // explicitly kill it off.
-                                    lastActivityCreated = new WeakReference<>(activity);
+                                    LAST_ACTIVITY_CREATED = new WeakReference<>(activity);
                                 }
                             }
 
                             @Override
                             public void onActivityStarted(Activity activity) {
                                 currentlyStartedActivities++;
-                                isInBackground = (currentlyStartedActivities == 0);
+                                IS_IN_BACKGROUND = (currentlyStartedActivities == 0);
                                 //Do nothing
                             }
 
@@ -219,7 +219,7 @@ public final class CrashHandler {
                             public void onActivityStopped(Activity activity) {
                                 //Do nothing
                                 currentlyStartedActivities--;
-                                isInBackground = (currentlyStartedActivities == 0);
+                                IS_IN_BACKGROUND = (currentlyStartedActivities == 0);
                             }
 
                             @Override
@@ -412,8 +412,8 @@ public final class CrashHandler {
      *
      * @return true if it will be launched, false otherwise.
      */
-    public static boolean isLaunchErrorActivityWhenInBackground() {
-        return launchErrorActivityWhenInBackground;
+    public static boolean isLaunchErrorActWhenInBg() {
+        return LAUNCH_ERROR_ACT_WHEN_IN_BG;
     }
 
     /**
@@ -423,8 +423,8 @@ public final class CrashHandler {
      * This has no effect in API<14 and the error activity is always launched.
      * The default is true (the app will be brought to front when a crash occurs).
      */
-    public static void setLaunchErrorActivityWhenInBackground(boolean launchErrorActivityWhenInBackground) {
-        CrashHandler.launchErrorActivityWhenInBackground = launchErrorActivityWhenInBackground;
+    public static void setLaunchErrorActWhenInBg(boolean launchErrorActWhenInBg) {
+        CrashHandler.LAUNCH_ERROR_ACT_WHEN_IN_BG = launchErrorActWhenInBg;
     }
 
     /**
@@ -433,7 +433,7 @@ public final class CrashHandler {
      * @return true if it will be shown, false otherwise.
      */
     public static boolean isShowErrorDetails() {
-        return showErrorDetails;
+        return SHOW_ERROR_DETAILS;
     }
 
     /**
@@ -443,7 +443,7 @@ public final class CrashHandler {
      * The default is true.
      */
     public static void setShowErrorDetails(boolean showErrorDetails) {
-        CrashHandler.showErrorDetails = showErrorDetails;
+        CrashHandler.SHOW_ERROR_DETAILS = showErrorDetails;
     }
 
     /**
@@ -452,7 +452,7 @@ public final class CrashHandler {
      * @return the default error activity drawable identifier
      */
     public static int getDefaultErrorActivityDrawable() {
-        return defaultErrorActivityDrawableId;
+        return DEF_ERROR_ACT_DRAWABLE_ID;
     }
 
     /**
@@ -461,7 +461,7 @@ public final class CrashHandler {
      * The default is R.drawable.customactivityoncrash_error_image (a cute upside-down bug).
      */
     public static void setDefaultErrorActivityDrawable(int defaultErrorActivityDrawableId) {
-        CrashHandler.defaultErrorActivityDrawableId = defaultErrorActivityDrawableId;
+        CrashHandler.DEF_ERROR_ACT_DRAWABLE_ID = defaultErrorActivityDrawableId;
     }
 
     /**
@@ -472,7 +472,7 @@ public final class CrashHandler {
      * @return true if a restart button should be shown, false if a close button must be used.
      */
     public static boolean isEnableAppRestart() {
-        return enableAppRestart;
+        return ENABLE_APP_RESTART;
     }
 
     /**
@@ -484,7 +484,7 @@ public final class CrashHandler {
      * The default is true.
      */
     public static void setEnableAppRestart(boolean enableAppRestart) {
-        CrashHandler.enableAppRestart = enableAppRestart;
+        CrashHandler.ENABLE_APP_RESTART = enableAppRestart;
     }
 
     /**
@@ -492,16 +492,16 @@ public final class CrashHandler {
      *
      * @return The class, or null if not set.
      */
-    public static Class<? extends Activity> getErrorActivityClass() {
-        return errorActivityClass;
+    public static Class<? extends Activity> getErrorActClass() {
+        return ERROR_ACT_CLASS;
     }
 
     /**
      * Sets the error activity class to launch when a crash occurs.
      * If null,the default error activity will be used.
      */
-    public static void setErrorActivityClass(Class<? extends Activity> errorActivityClass) {
-        CrashHandler.errorActivityClass = errorActivityClass;
+    public static void setErrorActClass(Class<? extends Activity> errorActClass) {
+        CrashHandler.ERROR_ACT_CLASS = errorActClass;
     }
 
     /**
@@ -509,16 +509,16 @@ public final class CrashHandler {
      *
      * @return The class, or null if not set.
      */
-    public static Class<? extends Activity> getRestartActivityClass() {
-        return restartActivityClass;
+    public static Class<? extends Activity> getRestartActClass() {
+        return RESTART_ACT_CLASS;
     }
 
     /**
      * Sets the main activity class that the error activity must launch when a crash occurs.
      * If not set or set to null, the default error activity will close instead.
      */
-    public static void setRestartActivityClass(Class<? extends Activity> restartActivityClass) {
-        CrashHandler.restartActivityClass = restartActivityClass;
+    public static void setRestartActClass(Class<? extends Activity> restartActClass) {
+        CrashHandler.RESTART_ACT_CLASS = restartActClass;
     }
 
     /**
@@ -552,7 +552,7 @@ public final class CrashHandler {
 
     /**
      * INTERNAL method that checks if the stack trace that just crashed is conflictive. This is true in the following scenarios:
-     * - The application has crashed while initializing (handleBindApplication is in the stack)
+     * - The APPLICATION has crashed while initializing (handleBindApplication is in the stack)
      * - The error activity has crashed (activityClass is in the stack)
      *
      * @param throwable     The throwable from which the stack trace will be checked
@@ -655,7 +655,7 @@ public final class CrashHandler {
         Class<? extends Activity> resolvedActivityClass;
 
         //If action is defined, use that
-        resolvedActivityClass = getRestartActivityClassWithIntentFilter(context);
+        resolvedActivityClass = getRestartActClassWithIntentFilter(context);
 
         //Else, get the default launcher activity
         if (resolvedActivityClass == null) {
@@ -673,13 +673,13 @@ public final class CrashHandler {
      * @return A valid activity class, or null if no suitable one is found
      */
     @SuppressWarnings("unchecked")
-    private static Class<? extends Activity> getRestartActivityClassWithIntentFilter(Context context) {
+    private static Class<? extends Activity> getRestartActClassWithIntentFilter(Context context) {
         Intent searchedIntent = new Intent().setAction(INTENT_ACTION_RESTART_ACTIVITY).setPackage(context.getPackageName());
-        List<ResolveInfo> resolveInfos = context.getPackageManager().queryIntentActivities(searchedIntent,
+        List<ResolveInfo> resolveInfoList = context.getPackageManager().queryIntentActivities(searchedIntent,
                 PackageManager.GET_RESOLVED_FILTER);
 
-        if (resolveInfos != null && resolveInfos.size() > 0) {
-            ResolveInfo resolveInfo = resolveInfos.get(0);
+        if (resolveInfoList != null && resolveInfoList.size() > 0) {
+            ResolveInfo resolveInfo = resolveInfoList.get(0);
             try {
                 return (Class<? extends Activity>) Class.forName(resolveInfo.activityInfo.name);
             } catch (ClassNotFoundException e) {
@@ -725,7 +725,7 @@ public final class CrashHandler {
         Class<? extends Activity> resolvedActivityClass;
 
         //If action is defined, use that
-        resolvedActivityClass = getErrorActivityClassWithIntentFilter(context);
+        resolvedActivityClass = getErrorActClassWithIntentFilter(context);
 
         //Else, get the default launcher activity
         if (resolvedActivityClass == null) {
@@ -743,7 +743,7 @@ public final class CrashHandler {
      * @return A valid activity class, or null if no suitable one is found
      */
     @SuppressWarnings("unchecked")
-    private static Class<? extends Activity> getErrorActivityClassWithIntentFilter(Context context) {
+    private static Class<? extends Activity> getErrorActClassWithIntentFilter(Context context) {
         Intent searchedIntent = new Intent().setAction(INTENT_ACTION_ERROR_ACTIVITY).setPackage(context.getPackageName());
         List<ResolveInfo> resolveInfos = context.getPackageManager().queryIntentActivities(searchedIntent,
                 PackageManager.GET_RESOLVED_FILTER);

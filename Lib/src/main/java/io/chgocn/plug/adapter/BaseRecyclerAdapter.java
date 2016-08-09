@@ -9,7 +9,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Adapter for RecyclerView
@@ -22,13 +23,13 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<BaseRe
     protected Context context;
     private int layoutResId;
 
-    protected List<T> mItems;
+    protected List<T> items;
     private List<T> empty = new ArrayList<>();
 
     /**
      * Create adapter
      *
-     * @param context context
+     * @param context     context
      * @param layoutResId
      */
     public BaseRecyclerAdapter(final Context context, final int layoutResId) {
@@ -37,15 +38,16 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<BaseRe
     }
 
     public BaseRecyclerAdapter(List<T> items) {
-        if (items == null)
+        if (items == null) {
             items = empty;
-        this.mItems = items;
+        }
+        this.items = items;
     }
 
     public BaseRecyclerAdapter(final Context context) {
         this.context = context;
 
-        mItems = empty;
+        items = empty;
     }
 
     public int getLayoutId(int viewType) {
@@ -63,28 +65,29 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<BaseRe
 
     @Override
     public long getItemId(final int position) {
-        return mItems.get(position).hashCode();
+        return items.get(position).hashCode();
     }
 
     @Override
     public int getItemCount() {
-        if (mItems == null)
+        if (items == null) {
             return 0;
-        return mItems.size();
+        }
+        return items.size();
     }
 
     public void addItem(T viewItem) {
-        if (mItems != null) {
-            mItems.add(viewItem);
+        if (items != null) {
+            items.add(viewItem);
             notifyDataSetChanged();
         }
     }
 
     public void addAll(List<T> newData) {
-        if (mItems != null) {
-            int start = mItems.size();
-            mItems.addAll(newData);
-            notifyItemRangeInserted(start, mItems.size() - 1);
+        if (items != null) {
+            int start = items.size();
+            items.addAll(newData);
+            notifyItemRangeInserted(start, items.size() - 1);
         }
     }
 
@@ -93,35 +96,36 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<BaseRe
         if (newData == null) {
             newData = new ArrayList<>();
         }
-        mItems = newData;
-        notifyItemRangeInserted(0, mItems.size() - 1);
+        items = newData;
+        notifyItemRangeInserted(0, items.size() - 1);
     }
 
     public void clearAll() {
-        if (mItems == null)
+        if (items == null) {
             return;
-
-        int size = this.mItems.size();
+        }
+        int size = this.items.size();
         if (size > 0) {
-            mItems = new ArrayList<>();
+            items = new ArrayList<>();
             this.notifyItemRangeRemoved(0, size);
         }
     }
 
     protected List<T> getItems() {
-        return mItems;
+        return items;
     }
 
     public void setItems(final List<T> items) {
-        if (items != null)
-            this.mItems = items;
-        else
-            this.mItems = empty;
+        if (items != null) {
+            this.items = items;
+        } else {
+            this.items = empty;
+        }
         notifyDataSetChanged();
     }
 
     public T getItem(final int position) {
-        return mItems.get(position);
+        return items.get(position);
     }
 
     /**
