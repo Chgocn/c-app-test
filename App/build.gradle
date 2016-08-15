@@ -1,5 +1,8 @@
 apply plugin: 'com.android.application'
 
+def isTravis = "true".equals(System.getenv("TRAVIS"))
+def preDexEnabled = "true".equals(System.getProperty("pre-dex", "true"))
+
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
     buildToolsVersion rootProject.ext.buildToolsVersion
@@ -11,12 +14,8 @@ android {
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode verCode
         versionName "0.0.1"
-
         // Enabling multidex support.
         multiDexEnabled true
-        //Api server url
-        buildConfigField 'String','API_SERVER_URL','"http://api.com.cn/V0.2/"'
-        buildConfigField 'boolean','LOG_DEBUG','true'
     }
 
     // sign the application
@@ -41,20 +40,32 @@ android {
             signingConfig signingConfigs.release
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            buildConfigField 'String','API_SERVER_URL','"http://api.com.cn/V0.1/"'
-            buildConfigField 'boolean','LOG_DEBUG','false'
-            //signingConfig getSigningConfig()
-            applicationVariants.all { variant ->
-                variant.outputs.each { output ->
-                    def date = new Date();
-                    def formattedDate = date.format('yyyyMMdd')
-                    output.outputFile = new File(output.outputFile.parent,
-                            output.outputFile.name.replace("-release", "-release" + verCode + "-" + formattedDate)
-                            //for Debug use output.outputFile = new File(output.outputFile.parent,output.outputFile.name.replace("-debug", "-" + formattedDate)
-                    )
-                }
-            }
         }
+    }
+
+    packagingOptions {
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/NOTICE'
+    }
+
+    lintOptions {
+        warning 'MissingTranslation'
+        abortOnError true
+        check 'NewApi', 'InlinedApi'
+        fatal 'NewApi', 'InlinedApi'
+        checkReleaseBuilds true
+
+        textReport isTravis
+        textOutput 'stdout'
+
+        htmlReport !isTravis
+        xmlReport !isTravis
+    }
+
+    dexOptions {
+        // Skip pre-dexing when running on Travis CI or when disabled via -Dpre-dex=false.
+        preDexLibraries = preDexEnabled && !isTravis
     }
 }
 

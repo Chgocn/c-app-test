@@ -39,4 +39,6 @@
 
     <item type="id" name="item_click_support">false</item>
 
+    <item type="id" name="sliding_tabs_layout">false</item>
+
 </resources>

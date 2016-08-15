@@ -20,9 +20,9 @@ import com.umeng.analytics.MobclickAgent;
 public abstract class BaseFragment extends android.support.v4.app.Fragment {
 
     //fragment state
-    private boolean fragmentResume=false;
-    private boolean fragmentVisible=false;
-    private boolean fragmentOnCreated=false;
+    private boolean fragmentResume = false;
+    private boolean fragmentVisible = false;
+    private boolean fragmentOnCreated = false;
 
     /**
      * Is this fragment usable from the UI-thread

@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <style name="Global">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+    </style>
+
     <style name="RootView">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">match_parent</item>
@@ -7,23 +12,6 @@
         <item name="android:orientation">vertical</item>
     </style>
 
-    <!--<style name="ResetEditText" parent="@android:style/Widget.EditText">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">50dp</item>
-        <item name="android:drawableRight">@drawable/abc_ic_clear_mtrl_alpha</item>
-        <item name="android:background">@null</item>
-        <item name="android:layout_marginLeft">@dimen/margin_xl</item>
-        <item name="android:layout_marginRight">@dimen/margin_xl</item>
-        <item name="android:layout_gravity">center_vertical</item>
-        <item name="android:textSize">@dimen/text_size_l</item>
-        <item name="android:textColor">@color/normal_text_color</item>
-        <item name="android:textColorHint">@android:color/darker_gray</item>
-        <item name="android:textCursorDrawable">@null</item>
-        <item name="android:maxLines">1</item>
-        <item name="android:singleLine">true</item>
-    </style>-->
-
-    <!-- Button style. -->
     <style name="Button" parent="@android:style/Widget.Button" />
 
     <style name="Button.Small" parent="@style/Button">
@@ -65,7 +53,6 @@
     <style name="ProgressBar">
         <item name="android:layout_width">50dp</item>
         <item name="android:layout_height">50dp</item>
-
         <item name="android:indeterminate">true</item>
         <item name="android:indeterminateDuration">2000</item>
         <item name="android:indeterminateOnly">true</item>
@@ -141,22 +128,5 @@
     <item name="android:layout_weight">1</item>
     <item name="android:background">@drawable/bg_segment_button_selector</item>
     </style>
-
-    <declare-styleable name="RoundProgressBar">
-        <attr name="max" format="integer"/>
-        <attr name="progress" format="integer"/>
-        <attr name="startAngle" format="integer"/>
-        <attr name="ringColor" format="color"/>
-        <attr name="ringProgressColor" format="color"/>
-        <attr name="ringWidth" format="dimension"/>
-        <attr name="centreColor" format="color" />
-        <attr name="textColor" format="color" />
-        <attr name="textSize" format="dimension" />
-        <attr name="textIsDisplayable" format="boolean"/>
-        <attr name="style">
-            <enum name="STROKE" value="0"/>
-            <enum name="FILL" value="1"/>
-        </attr>
-    </declare-styleable>
 
 </resources>
